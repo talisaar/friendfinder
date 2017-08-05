@@ -2,7 +2,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
 var app = express();
-runserver();
+var PORT = 3002;
+
 
 
 app.use(bodyParser.json());
@@ -14,26 +15,14 @@ app.use(bodyParser.json({
   type: "application/vnd.api+json"
 }));
 
-
-function runserver () {
-
-app.listen(3002);
-console.log("server running!")
-}
-
-app.get("/", function(req, res) {
+require('./routing/apiRoutes.js')(app);
+require('./routing/htmlRoutes.js')(app);
 
 
-res.sendFile(__dirname + '/public/home.html');
 
+app.listen(PORT, function() {
 
-});
-
-
-app.get("/survey", function(req, res) {
-
-res.sendFile(__dirname + '/public/survey.html');
-
+	console.log("server is on");
 });
 
 
